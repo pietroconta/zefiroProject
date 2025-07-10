@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /zefiroProject/
+
+# Se la richiesta è già per public, non fare rewrite
+RewriteCond %{REQUEST_URI} !^/zefiroProject/public/
+
+# Riscrivi tutto a public/
+RewriteRule ^(.*)$ public/$1 [L]

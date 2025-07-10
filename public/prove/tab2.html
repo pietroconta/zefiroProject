@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tabella da JSON (file esterno da php)</title>
+  </head>
+  <!-- <body> -->
+  <body onload="getData('S')">
+    <script>
+      function f_edit(p_op, p_val) {
+        alert(p_op + p_val);
+      }
+      function getData(p_op) {
+        let $id_req_pag = document.getElementById("id_req_pag").value;
+        let $id_rows_pag = document.getElementById("id_rows_pag").value;
+
+        const frmAddNumbers = new FormData(); // create single instance
+        frmAddNumbers.set("operation", p_op);
+        frmAddNumbers.set("id_req_pag", $id_req_pag);
+        frmAddNumbers.set("id_rows_pag", $id_rows_pag);
+
+        fetch("php/tab2.php", { method: "POST", body: frmAddNumbers })
+          .then((response) => response.json())
+          .then((data) => {
+            const tabella = document
+              .getElementById("tab_anagr")
+              .getElementsByTagName("tbody")[0];
+            console.log(data["ret_par"]);
+            console.log(data["dati_db"]);
+            console.log(data);
+            tabella.innerHTML = "";
+
+            data["dati_db"].forEach((item) => {
+              const riga = tabella.insertRow();
+
+              const b_edit = riga.insertCell();
+              const b_del = riga.insertCell();
+              const c_id = riga.insertCell();
+              const c_nome = riga.insertCell();
+              const c_cognome = riga.insertCell();
+
+              b_edit.innerHTML =
+                '<input type="button" onclick="f_edit(\'E\', this.id)" id="' + item.id_anagr + '" value="Modifica" />';
+
+              b_del.innerHTML =
+                '<input type="button" onclick="f_edit(\'D\', this.id)" id="' + item.id_anagr + '" value="Elimina" />';
+
+              c_id.textContent = item.id_anagr;
+              c_nome.textContent = item.nome;
+              c_cognome.textContent = item.cognome;
+            });
+          })
+          .catch((error) => {
+            console.log("Error:", error);
+          });
+      }
+    </script>
+    <label>
+      pag:
+      <input type="number" id="id_req_pag" name="req_pag" min="1" value="1" />
+    </label>
+    <br />
+    <label>
+      lim:
+      <input type="number" id="id_rows_pag" name="rows_pag" min="1" value="3" />
+    </label>
+    <button id="getData" onclick="getData('S')">Leggi</button>
+
+    <br />
+    <h1>Tabella Dati Anagrafici</h1>
+    <input type="button" value="Nuovo" onclick="f_edit('C', 0)" />
+    <table id="tab_anagr">
+      <thead>
+        <tr>
+          <th>Edit</th>
+          <th>Delete</th>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Cognome</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>

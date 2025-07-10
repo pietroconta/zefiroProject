@@ -1,0 +1,20 @@
+prove
+copiare questa directory all'interno del progetto attuale 
+
+Aggiungere ad index.html:
+  una nuova voce di menu (prove)
+  all'interno una voce submenu
+  e ancora all'interno:
+    1  richiama prove/php/dati.json
+    2  richiama prove/php/dati.php
+    3  richiama prove/tab1a.html  
+    4  richiama prove/tab1b.html
+    5  richiama prove/tab2.html  
+
+==================
+
+!! verificare il $db_name all'interno del file _db_connect.php: deve esserci il nome del database
+
+==================
+tab5.html è una pagina web molto rudimentale: provare a modifcarla per una presentazione più accettabile
+

@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Se la richiesta non è per un file o una directory esistente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Tutto viene reindirizzato a api.php, ma mantiene il path
+RewriteRule ^api\.php/(.*)$ api.php [QSA,L]
