@@ -1,1 +1,1 @@
-zefiro project
+A simple full-stack web application built with vanilla PHP, MySQL, and JavaScript, following the MVC pattern and featuring a custom REST API. Developed as part of the Zefiro Full Stack Developer course to practice core web development skills.
